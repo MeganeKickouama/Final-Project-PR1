@@ -27,6 +27,8 @@ public class Beverage {
 
     }
 
+    //copy constructor
+
     /** GeneratID method determines if the number is 1, 2 or 3 digits and adds a "B" and zeros accordingly */
 
     public static String generateID(int beverageNextID) {
@@ -64,10 +66,10 @@ public class Beverage {
 
     public String toString() {
 
-        return "Beverage ID : " + beverageID + "\n" +
-               "Beverage Name : " + beverageName + "\n" +
-               "Beverage Price : " + "$" + price + "\n" +
-               "Beverage : " + volume;
+        return "Beverage ID        : " + this.beverageID + "\n" +
+               "Beverage Name      : " + this.beverageName + "\n" +
+               "Beverage Price     : " + "$" + this.price + "\n" +
+               "Beverage           : " + this.volume;
     }
 
     /** Getters */
