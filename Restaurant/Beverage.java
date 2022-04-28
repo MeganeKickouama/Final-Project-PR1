@@ -1,5 +1,7 @@
 package Restaurant;
 
+/** @author Mégane Kickouama 2176328 */
+
 public class Beverage {
 
     /** Data members */

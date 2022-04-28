@@ -78,6 +78,11 @@ public class Student {
     // copy constructor
     // extract email account method
 
+    public String extractEmail(String email) {
+
+        return "helloworld";
+    }
+
     public boolean isEmailValid(String email) {
 
         boolean doesHaveAt = false; // does it have '@'?
@@ -92,9 +97,9 @@ public class Student {
             } else {}
         }
 
-        if (email.charAt(0) == '@') {
+        if (email.charAt(0) == '@') { // if the first character is '@', it becomes invalid.
             doesHaveAt = false;
-        } else if (email.charAt(email.length() - 1)  == '.') {
+        } else if (email.charAt(email.length() - 1)  == '.') { // if the last charcater is '.', it becomes invalid.
             doesHaveDot = false;
         }
 
@@ -103,12 +108,12 @@ public class Student {
 
     public String toString() {
 
-        return "Name: " + firstName + " " + lastName + "\n" +
-               "ID: " + ID + "\n" +
-               "Age: " + age + "\n" +
-               "Email: " + email + "\n" +
-               "Course1: " + course1.getCourseName() + "[" + course1.getCredit() + " credits]" + "\n" +
-               "Course1: " + course1.getCourseName() + "[" + course2.getCredit() + " credits]";
+        return "Name    : " + firstName + " " + lastName + "\n" +
+               "ID      : " + ID + "\n" +
+               "Age     : " + age + "\n" +
+               "Email   : " + email + "\n" +
+               "Course1 : " + course1.getCourseName() + "[" + course1.getCredit() + " credits]" + "\n" +
+               "Course1 : " + course1.getCourseName() + "[" + course2.getCredit() + " credits]";
     }
 
     public boolean equals(Student otherStudent) {
@@ -122,37 +127,37 @@ public class Student {
 
     public String getFirstName() {
 
-        return this.firstName;
+        return firstName;
     }
 
     public String getLastName() {
 
-        return this.lastName;
+        return lastName;
     }
 
     public String getEmail() {
 
-        return this.email;
+        return email;
     }
 
     public String getID() {
 
-        return this.ID;
+        return ID;
     }
 
     public int getAge() {
 
-        return this.age;
+        return age;
     }
 
     public Course getCourse1() {
 
-        return this.course1;
+        return course1;
     }
 
     public Course getCourse2() {
 
-        return this.course2;
+        return course2;
     }
 
     /** Setters */
@@ -172,9 +177,7 @@ public class Student {
         this.email = newEmail;
     }
 
-    // set ID ?
-
-    public void getAge(int newAge) {
+    public void setAge(int newAge) {
 
         this.age = newAge;
     }

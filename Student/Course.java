@@ -1,5 +1,7 @@
 package Student;
 
+/** @author Mégane Kickouama 2176328 */
+
 public class Course {
 
     /** Data members */

@@ -1,5 +1,7 @@
 package Restaurant;
 
+/** @author Mégane Kickouama 2176328 */
+
 public class Dish{
 
     private String dishID;
@@ -8,7 +10,7 @@ public class Dish{
     private double price;
     private boolean isSpicy;
 
-    private static int nextID;
+    private static int nextID = 0;
 
     public Dish() {
 
@@ -104,9 +106,31 @@ public class Dish{
         return price;
     }
 
-    //not finished 
-    
+    public boolean getIsSpicy() {
+
+        return isSpicy;
+    }
 
     /** Setters */
+
+    public void setDishName(String newDishName) {
+
+        dishName = newDishName;
+    }
+
+    public void setSize(char newSize) {
+
+        size = newSize;
+    }
+
+    public void setPrice(double newPrice) {
+
+        price = newPrice;
+    }
+
+    public void setIsSpicy(boolean newIsSpicy) {
+
+        isSpicy = newIsSpicy;
+    }
 
 }
