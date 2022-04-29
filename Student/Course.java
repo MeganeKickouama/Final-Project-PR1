@@ -5,11 +5,11 @@ package Student;
 public class Course {
 
     /** Data members */
-    
     private String courseName;
     private int credit;
     private boolean isComplementaryCourse;
 
+    /** Default constructor */
     public Course() {
 
         courseName = "";
@@ -17,6 +17,7 @@ public class Course {
         isComplementaryCourse = false;
     }
 
+    /** Overloaded constructor with courseName */
     public Course(String setCourseName) {
 
         courseName = setCourseName;
@@ -24,6 +25,7 @@ public class Course {
         isComplementaryCourse = false;
     }
 
+    /** Overloaded constructor with courseName, credit and isComplementary */
     public Course(String setCourseName, int setCredit, boolean setIsComplementary) {
 
         courseName = setCourseName;
@@ -31,26 +33,33 @@ public class Course {
         isComplementaryCourse = setIsComplementary;
     }
 
-    //copy constructor
+    /** Copy contsructor, gets data fields of other course, and copies them */
+    public Course(Course otherCourse) {
 
+        courseName = otherCourse.courseName;
+        credit = otherCourse.credit;
+        isComplementaryCourse = otherCourse.isComplementaryCourse;
+    }
+
+    /** String format for the course */
     public String toString(Course course) {
 
         String yesNo;
 
-        if (this.isComplementaryCourse) {
+        if (isComplementaryCourse) {
             yesNo = "yes";
         } else yesNo = "no";
 
-        return "Course Name  : " + this.courseName + "\n" +
-               "Credit       : " + this.credit + "\n" +
+        return "Course Name  : " + courseName + "\n" +
+               "Credit       : " + credit + "\n" +
                "Complementary: " + yesNo;
     }
 
     public boolean equals(Course otherCourse) {
 
-        return (otherCourse.courseName == this.courseName &&
-        otherCourse.credit == this.credit && 
-        otherCourse.isComplementaryCourse == this.isComplementaryCourse);
+        return (this.courseName == otherCourse.courseName && 
+         this.credit == otherCourse.credit && 
+        this.isComplementaryCourse == otherCourse.isComplementaryCourse);
     }
 
     /** Getters */

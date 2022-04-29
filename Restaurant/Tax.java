@@ -10,12 +10,14 @@ public class Tax {
     /** Default constructor */
     public Tax() {
 
+        fedTax = 0;
+        proTax = 0;
+        totalTax = 0;
     }
 
     /** Constructor with parameters */
     public Tax(double setFedTax, double setProTax, double setTotalTax) {
 
-        // why is total tax a parameter?
         fedTax = setFedTax;
         proTax = setProTax;
         totalTax = setTotalTax;

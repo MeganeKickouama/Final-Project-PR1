@@ -12,6 +12,12 @@ public class Bill {
     /** Default constructor */
     public Bill() {
 
+        combo = new Combo();
+        customer = new Customer();
+        originalPrice = 0;
+        discountedPrice = 0;
+        tax = new Tax();
+        finalPrice = 0;
     }
 
     /** Constructor with parameters */
@@ -19,9 +25,9 @@ public class Bill {
 
         combo = new Combo(setDish, setBeverage);
         customer = setCustomer;
-        originalPrice = combo.getPrice(); // ?
-        //2c
-        //2d
+        originalPrice = combo.calcComboPrice(setDish, setBeverage); 
+        discountedPrice = this.calcPriceWithDiscount();
+        
         //2e
 
     }
@@ -37,13 +43,42 @@ public class Bill {
         this.finalPrice = otherBill.finalPrice;
     }
 
-    public void calcPriceWithDiscount() {
+    public double calcPriceWithDiscount() {
 
-        if (customer.getVipLevel() == 0 || customer == null) {
+        if (customer != null) {
 
-            return combo.calcComboPrice(combo.getDish().getPrice(), combo.getBeverage().getPrice());
+            switch (customer.getVipLevel()) { 
+
+                /** If customer is level 1, get 5% off.
+                 * If customer is level 2, get 10% off.
+                 * if customer is level 3, get 15% off.
+                 * else, return normal price. 
+                 */
+
+                case 1: return (combo.calcComboPrice(combo.getDish(), combo.getBeverage()) * 0.95); 
+                case 2: return (combo.calcComboPrice(combo.getDish(), combo.getBeverage()) * 0.9);
+                case 3: return (combo.calcComboPrice(combo.getDish(), combo.getBeverage()) * 0.85);
+                default: return combo.calcComboPrice(combo.getDish(), combo.getBeverage());
+            }
+
+        } else {
+
+            return combo.calcComboPrice(combo.getDish(), combo.getBeverage());
         }
     }
 
+    public void calcTax() {
 
+        // multiply federal tax with 
+
+        tax.setFedTax(tax.getFedTax() * 0.05);
+        tax.setProTax(tax.getProTax() * 0.1);
+    }
+
+    public double calcFinalPice() {
+
+        calcTax();
+
+        return calcPriceWithDiscount() + tax.getTotalTax();
+    }
 }

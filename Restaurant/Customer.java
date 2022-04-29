@@ -29,7 +29,7 @@ public class Customer {
 
     // copy contructor
 
-    private static String generateID(int nextID) { // private, bad call?
+    public String generateID(int nextID) { // private, bad call?
 
         if (0 < nextID && nextID < 10) {
 
@@ -50,7 +50,10 @@ public class Customer {
         }
     }
 
-    //equals
+    public boolean equals(Customer otheCustomer) {
+
+        
+    }
 
     public String toString() {
 

@@ -12,12 +12,17 @@ public class Beverage {
 
     private static int beverageNextID = 0;
 
+    /** Default constructor, all parameters are empty/default */
     public Beverage() {
 
         beverageNextID++;
         beverageID = generateID(beverageNextID);
+        beverageName = "";
+        price = 0;
+        volume = 0;
     }
 
+    /** Overloaded constructor */
     public Beverage(String setBeverageName, double setPrice,
     int setVolume) {
 
@@ -29,10 +34,16 @@ public class Beverage {
 
     }
 
-    //copy constructor
+    /** Copy contructor, set every data field to other beverage's data field*/
+    public Beverage(Beverage otherBeverage) {
+
+        beverageID = otherBeverage.beverageID;
+        beverageName = otherBeverage.beverageName;
+        price = otherBeverage.price;
+        volume = otherBeverage.volume;
+    }
 
     /** GeneratID method determines if the number is 1, 2 or 3 digits and adds a "B" and zeros accordingly */
-
     public static String generateID(int beverageNextID) {
 
         if (0 < beverageNextID && beverageNextID < 10) {
