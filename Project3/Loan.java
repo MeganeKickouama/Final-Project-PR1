@@ -1,5 +1,7 @@
 package Project3;
 
+/** @author Mégane Kickouama @2176328 */
+
 public class Loan {
 
     /** Data members */
@@ -26,7 +28,7 @@ public class Loan {
 
     public double getMonthlyInterestRate() {
 
-        return this.getAnnualInterestsRate() / 1200;
+        return this.getAnnualInterestRate() / 1200;
     }
 
     public double getMonthlyPayment() {
@@ -35,36 +37,41 @@ public class Loan {
                (1 - Math.pow(1 + this.getMonthlyInterestRate(), - (this.getLoanMonths())));
     }
 
-    public double getLoanCost() { // only the interest or total spent?
+    public double getLoanCost() { // total interest paid
 
         return (getMonthlyPayment() * getLoanMonths()) - getLoanAmount();
     }
 
-    public String amortize(Loan loan) {
+    public String amortize() {
 
         String lines = "-----------------------------------------";
         String lines2 = "-----    --------   ---------     -------";
         String[] monthLines = new String[this.getLoanMonths()];
-        String fieldsFormat1 = "Month    Interest   Principal      Loan";
-        String fieldsFormat2 = "         Paid       Paid        Balance";
+        String fieldsFormat1 = "Month    Interest   Principal       Loan";
+        String fieldsFormat2 = "         Paid       Paid         Balance";
         String allMonthLines = "";
         double newBalance = getLoanAmount();
+        double totalInterest = 0;
 
 
         for (int i = 0; i < (this.getLoanMonths()); i++) { 
 
-            double interest = (getAnnualInterestsRate() *  newBalance);
+            double interest = (this.getMonthlyInterestRate() *  newBalance);
+            totalInterest += interest;
 
-            newBalance -= getMonthlyPayment();
-            monthLines[i] = String.format("%d        %f.00      %f     %f\n", (i + 1), interest, (getMonthlyPayment() - interest), newBalance);
-            // monthLines[i] = (i + 1) + interest + getMonthlyPayment() - interest + newBalance + "\n";
+            double principal = getMonthlyPayment() - interest;
+            newBalance -= principal;
+
+            monthLines[i] = String.format("%-4d    %.2f      %.2f     %.2f\n", (i + 1), interest, principal, newBalance);
             allMonthLines += monthLines[i];
-
         }
 
+        String total = String.format("Totals      %.2f     %.2f", totalInterest, getLoanAmount());
+
         return String.format(
-                "%s\n          Amortization Schedule\n             Monthly Payment\n                 $%f.00\n%s\n%s\n%s\n%s\n\n%s\n%s",
-                lines, getMonthlyPayment(), lines, fieldsFormat1, fieldsFormat2, lines2, allMonthLines, lines); // TODO: add totals string
+                "%s\n          Amortization Schedule\n             Monthly Payment\n                 $%.2f\n%s\n%s\n%s\n%s\n\n%s%s\n%s",
+                lines, getMonthlyPayment(), lines, fieldsFormat1, fieldsFormat2, lines2, allMonthLines, lines, total); 
+                // TODO: add totals string
 
     }
 
@@ -75,7 +82,7 @@ public class Loan {
         return loan;
     }
 
-    public double getAnnualInterestsRate() {
+    public double getAnnualInterestRate() {
 
         return annualInterest;
     }
@@ -104,8 +111,7 @@ public class Loan {
 
         if (setAnnualInterest < 0 || setAnnualInterest > 100) {
 
-            throw new IllegalArgumentException(
-                    "Loan: setAnnualInterest: the annual interest should be between 0 and 100");
+            throw new IllegalArgumentException("Loan: setAnnualInterest: the annual interest should be between 0 and 100");
 
         } else {
 
