@@ -90,26 +90,26 @@ public class Student {
         }
     }
 
-    public String extractEmail(String email) {
+    public String extractEmail() {
 
-        if (isEmailValid(email)) {
+        if (isEmailValid(this.email)) { // check if email is valid. if not, return " "
 
-            String sampleEmail;
+            String sampleEmail = ""; // what will be returned
 
-            for (int i = 0; i < email.length(); i++) {
+            for (int i = 0; i < this.email.length(); i++) {
 
-                if (email.charAt(i) == '@') {
+                if (this.email.charAt(i) == '@') { // if the character is '@', create array from 0 to '@'
 
-                    char[] emailLetters = char[i];
+                    char[] emailLetters = new char[i];
 
                     for (int j = 0; j < emailLetters.length; j++) {
 
                         emailLetters[j] = email.charAt(j);
+                        sampleEmail += emailLetters[j];
                     }
-                } else {}
+                } 
             }
 
-            sampleEmail = String.valueOf(emailLetters);
             return sampleEmail;
 
         } else {
@@ -152,8 +152,8 @@ public class Student {
                 "ID      : " + ID + "\n" +
                 "Age     : " + age + "\n" +
                 "Email   : " + email + "\n" +
-                "Course1 : " + course1.getCourseName() + "[" + course1.getCredit() + " credits]" + "\n" +
-                "Course1 : " + course1.getCourseName() + "[" + course2.getCredit() + " credits]";
+                "Course1 : " + course1.getCourseName() + " [" + course1.getCredit() + " credits]" + "\n" +
+                "Course1 : " + course1.getCourseName() + " [" + course2.getCredit() + " credits]";
     }
 
     public boolean equals(Student otherStudent) {
