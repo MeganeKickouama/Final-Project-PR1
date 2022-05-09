@@ -4,13 +4,13 @@ package Restaurant;
 
 public class Beverage {
 
-    /** Data members */
-    private  String beverageID;
+    /** Data members */ 
+    private static int beverageNextID = 0;
+
+    private String beverageID;
     private String beverageName;
     private double price;
     private int volume;
-
-    private static int beverageNextID = 0;
 
     /** Default constructor, all parameters are empty/default */
     public Beverage() {
@@ -37,7 +37,8 @@ public class Beverage {
     /** Copy contructor, set every data field to other beverage's data field*/
     public Beverage(Beverage otherBeverage) {
 
-        beverageID = otherBeverage.beverageID;
+        beverageNextID++;
+        beverageID = generateID(beverageNextID);
         beverageName = otherBeverage.beverageName;
         price = otherBeverage.price;
         volume = otherBeverage.volume;
@@ -46,48 +47,55 @@ public class Beverage {
     /** GeneratID method determines if the number is 1, 2 or 3 digits and adds a "B" and zeros accordingly */
     public static String generateID(int beverageNextID) {
 
-        if (0 < beverageNextID && beverageNextID < 10) {
+        if (0 < beverageNextID && beverageNextID < 10) { // if ID is 1 digit, add "B" + "00"
 
             return "B00" + String.valueOf(beverageNextID);
 
-        } else if (9 < beverageNextID && beverageNextID < 100) {
+        } else if (9 < beverageNextID && beverageNextID < 100) { // if ID is 2 digits, add "B" + "0"
 
             return "B0" + String.valueOf(beverageNextID);
 
-        } else if (99 < beverageNextID && beverageNextID < 1000) {
+        } else if (99 < beverageNextID && beverageNextID < 1000) { // if ID is 3 digits, add "B" 
 
             return "B" + String.valueOf(beverageNextID);
 
-        } else {
+        } else { 
             
-            return String.valueOf(0);
+            return "";
 
         }
     }
 
-    public double calcPrice(int volume, double price) {
+    /** Facilitator method that */
+    public double calcPrice() {
 
         final int VOLUME_LIMIT = 500;
-        if (volume <= VOLUME_LIMIT) {
-            return price;
+
+        if (this.volume <= VOLUME_LIMIT) {
+            return this.price;
         } else {
-            return (price * 0.6);
+            return (this.price * 0.6);
         }
     }
 
-    //equals (overloaded?)
+    // will return true if all these conditions are met: equal beverage names, prices and volumes.
+    public boolean equals(Beverage otherBeverage) { 
 
+        return (this.beverageName == otherBeverage.beverageName && this.price == otherBeverage.price && this.volume == otherBeverage.volume);
+    }
+
+    /* String format for a Beverage */
+    @Override
     public String toString() {
 
         return "Beverage ID        : " + this.beverageID + "\n" +
                "Beverage Name      : " + this.beverageName + "\n" +
                "Beverage Price     : " + "$" + this.price + "\n" +
-               "Beverage           : " + this.volume;
+               "Beverage           : " + this.volume + "\n";
     }
 
     /** Getters */
-
-    public String getBeverageID() { //static?
+    public String getBeverageID() { 
 
         return beverageID;
     }
@@ -99,7 +107,7 @@ public class Beverage {
 
     public double getPrice() {
 
-        return price; // add 'this' to getters? or just setters?
+        return price; 
     }
 
     public int getVolume() {
@@ -107,13 +115,7 @@ public class Beverage {
         return volume;
     }
 
-    /** Setters */ // setter for ID?
-
-    public void setBeverageID(String newBeverageID) { // static?
-
-
-    }
-
+    /** Setters */ 
     public void setBeverageName(String newBeverageName) {
 
         this.beverageName = newBeverageName;

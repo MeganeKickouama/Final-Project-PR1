@@ -3,68 +3,105 @@ package Restaurant;
 /** @author Mégane Kickouama @2176328 */
 
 public class Customer {
-    
-    private String customerID;
-    private String name;
-    private int vipLevel;
-    private int point;
 
+    /** Data members */
     private static int nextID;
 
+    private String customerID;
+    private String name;
+    private int vipLevel; // can be 0, 1, 2 or 3
+    private int points; // n of points
+
+    /** Default constructor */
     public Customer() {
 
         nextID++;
         customerID = generateID(nextID);
-
+        name = "";
+        vipLevel = 0;
+        points = 0;
     }
 
-    public Customer(String setName, int setVipLevel, int setPoint) {
+    /** Overloaded constructor */
+    public Customer(String setName, int setVipLevel, int setpoints) {
 
         nextID++;
         customerID = generateID(nextID);
         name = setName;
         vipLevel = setVipLevel;
-        point = setPoint;
+        points = setpoints;
     }
 
-    // copy contructor
+    /** Copy constructor, except ID (stays unique) */
+    public Customer(Customer otherCustomer) {
 
-    public String generateID(int nextID) { // private, bad call?
+        nextID++;
+        customerID = generateID(nextID);
+        name = otherCustomer.name;
+        vipLevel = otherCustomer.vipLevel;
+        points = otherCustomer.points;
+    }
 
-        if (0 < nextID && nextID < 10) {
+    /** Creates a String format for the ID, starting with "C" */
+    public String generateID(int nextID) { 
+
+        if (0 < nextID && nextID < 10) { // if ID is 1 digit, add 2 zeros
 
             return "C00" + String.valueOf(nextID);
 
-        } else if (9 < nextID && nextID < 100) {
+        } else if (9 < nextID && nextID < 100) { // if ID is 2 digits, add 1 zeros
 
             return "C0" + String.valueOf(nextID);
 
-        } else if (99 < nextID && nextID < 1000) {
+        } else if (99 < nextID && nextID < 1000) { // if ID is 3 digits, add nothing
 
             return "C" + String.valueOf(nextID);
 
         } else {
             
-            return "C000";
-
+            return "";
         }
     }
 
-    public boolean equals(Customer otheCustomer) {
+    /** Determines wether the VIP Level can be updated or not. */
+    public boolean updateVip() {
 
+        if (points > 50 && vipLevel == 0) {
+
+            return true;
+
+        } else if (points > 80 && vipLevel == 1) {
+
+            return true;
+
+        } else if (points > 100 && vipLevel == 2) {
+
+            return true;
+
+        } else {
+
+            return false;
+        }
+
+    }
+    /** If this Customer equal to this other Customer? if so, return true. */
+    public boolean equals(Customer otherCustomer) {
+
+        return (this.name == otherCustomer.name && this.vipLevel == otherCustomer.vipLevel && this.points == otherCustomer.points);
         
     }
 
+    /** String format for a Customer */
+    @Override
     public String toString() {
 
         return "Customer ID :" + customerID + "\n" +
                "Name : " + name + "\n" +
                "Vip Level : " + vipLevel + "\n" +
-               "Points : " + point;
+               "pointss : " + points;
     }
 
     /** Getters */
-
     public String getCustomerID() {
 
         return customerID;
@@ -80,30 +117,24 @@ public class Customer {
         return vipLevel;
     }
 
-    public int getPoint() {
+    public int getpoints() {
          
-        return point;
+        return points;
     }
 
     /** Setters */
+    public void setName(String newName) {
 
-    public void setCustomerID() {
-
-        // ? static ?
+        this.name = newName;
     }
 
-    public void setName(String setName) {
+    public void setVipLevel(int newVipLevel) {
 
-        this.name = setName;
+        this.vipLevel = newVipLevel;
     }
 
-    public void setVipLevel(int setVipLevel) {
+    public void setpoints(int newpoints) {
 
-        this.vipLevel = setVipLevel;
-    }
-
-    public void setPoint(int setPoint) {
-
-        this.point = setPoint;
+        this.points = newpoints;
     }
 }

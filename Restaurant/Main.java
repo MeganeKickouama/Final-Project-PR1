@@ -1,6 +1,6 @@
 package Restaurant;
 
-
+/** @author Mégane Kickouama @2176328 */
 
 public class Main {
     public static void main(String[] args) {

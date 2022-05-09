@@ -42,45 +42,45 @@ public class Course {
     }
 
     /** String format for the course */
-    public String toString(Course course) {
+    @Override
+    public String toString() {
 
         String yesNo;
 
         if (isComplementaryCourse) {
-            yesNo = "yes";
-        } else yesNo = "no";
+            yesNo = "Yes";
+        } else
+            yesNo = "No";
 
         return "Course Name  : " + courseName + "\n" +
-               "Credit       : " + credit + "\n" +
-               "Complementary: " + yesNo;
+                "Credit       : " + credit + "\n" +
+                "Complementary: " + yesNo;
     }
 
     public boolean equals(Course otherCourse) {
 
-        return (this.courseName == otherCourse.courseName && 
-         this.credit == otherCourse.credit && 
-        this.isComplementaryCourse == otherCourse.isComplementaryCourse);
+        return (this.courseName == otherCourse.courseName &&
+                this.credit == otherCourse.credit &&
+                this.isComplementaryCourse == otherCourse.isComplementaryCourse);
     }
 
     /** Getters */
-
     public String getCourseName() {
 
-        return this.courseName;
+        return courseName;
     }
 
     public int getCredit() {
 
-        return this.credit;
+        return credit;
     }
 
     public boolean getIsComplementary() {
 
-        return this.isComplementaryCourse;
+        return isComplementaryCourse;
     }
 
     /** Setters */
-
     public void setCourseName(String newCourseName) {
 
         this.courseName = newCourseName;

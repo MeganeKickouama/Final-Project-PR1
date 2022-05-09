@@ -1,6 +1,7 @@
 package Restaurant;
 
-/** @author Megane Kickouama, @2176328 */
+/** @author Mégane Kickouama @2176328 */
+
 public class Combo {
     
     /** Data members */
@@ -40,6 +41,8 @@ public class Combo {
         return (this.dish == otherCombo.dish && this.beverage == otherCombo.beverage);
     }
 
+    /** String format for the Combo, is composed of string format for dish and beverage. */
+    @Override
     public String toString() {
 
         return "Dish: \n\n" + this.dish.toString() + "\n\nBeverage: \n\n" + this.beverage.toString();

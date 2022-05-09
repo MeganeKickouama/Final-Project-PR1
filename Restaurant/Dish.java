@@ -5,13 +5,13 @@ package Restaurant;
 public class Dish {
 
     /** Data members */
+    private static int nextID = 0;
+
     private String dishID;
     private String dishName;
     private char size;
     private double price;
     private boolean isSpicy;
-
-    private static int nextID = 0;
 
     /** Default constructor, components are empty and falsified */
     public Dish() {
@@ -38,7 +38,8 @@ public class Dish {
     /** Copy constructor */
     public Dish(Dish otherDish) {
 
-        dishID = otherDish.dishID;
+        nextID++;
+        dishID = generateID(nextID);
         dishName = otherDish.dishName;
         size = otherDish.size;
         price = otherDish.price;
@@ -70,6 +71,7 @@ public class Dish {
         }
     }
 
+    /** Facilitator method to compute how much a dish should be depending on size */
     public double calcDishPrice(char size, double price) {
 
         switch (size) {
@@ -84,18 +86,20 @@ public class Dish {
                 return (price * 0.4);
 
             default:
-                return price; // return price or return 0?
+                return price; 
 
         }
     }
 
-    /** Equals, determines whether this Dish is equal to another Dish */
+    /** Equals method, determines whether this Dish is equal to another Dish, except for ID */
     public boolean equals(Dish otherDish) {
 
-        return  (this.dishName == otherDish.dishName &&
+        return (this.dishName == otherDish.dishName &&
                 this.size == otherDish.size && this.isSpicy == otherDish.isSpicy);
     }
 
+    /** String format for Dish */
+    @Override
     public String toString() {
 
         String spicyOrNot;
@@ -114,7 +118,6 @@ public class Dish {
     }
 
     /** Getters */
-
     public String getID() {
 
         return dishID;
@@ -141,7 +144,6 @@ public class Dish {
     }
 
     /** Setters */
-
     public void setDishName(String newDishName) {
 
         dishName = newDishName;

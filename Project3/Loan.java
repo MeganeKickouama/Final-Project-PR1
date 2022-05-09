@@ -10,7 +10,7 @@ public class Loan {
     private double annualInterest; // in %
     private int months; // loan term in months
 
-    /** Set consutructor */
+    /** Set constructor */
     public Loan(double setLoan, double setAnnualInterest, int setMonths) {
 
         setLoanAmount(setLoan);
@@ -26,7 +26,7 @@ public class Loan {
         return String.format(
                 "%s\n           Loan Report\n%s\n          Loan Amount: $%.2f\n Annual Interest rate: %.2f%%\n Loan's term in months: %d\n      Monthly payment: $%.2f\n  Total Interest Paid: $%.2f",
                 lines, lines, getLoanAmount(), getAnnualInterestRate(), getLoanMonths(), getMonthlyPayment(),
-                getTotalInterest());
+                getLoanCost());
     }
 
     /** Facilitator methods */
@@ -42,38 +42,22 @@ public class Loan {
                 (1 - Math.pow(1 + this.getMonthlyInterestRate(), -(this.getLoanMonths())));
     }
 
-    public double getLoanCost() { // total interest paid
+    // total interest paid
+    public double getLoanCost() { 
 
         return (getMonthlyPayment() * getLoanMonths()) - getLoanAmount();
     }
 
-    public double getTotalInterest() { // this is almost the same code as amortize(). the point here is to get the
-                                       // total intrest that will be used for the toString() method.
-
-        double newBalance = this.getLoanAmount();
-        double totalInterest = 0;
-
-        for (int i = 0; i < (this.getLoanMonths()); i++) {
-
-            double interest = (this.getMonthlyInterestRate() * newBalance);
-            totalInterest += interest;
-
-            double principal = getMonthlyPayment() - interest;
-            newBalance -= principal;
-        }
-
-        return totalInterest;
-    }
-
-    public String amortize() {
+    // String format to know how much you pay each month in interest and in principle.
+    public String amortize() { 
 
         String lines = "-----------------------------------------";
         String lines2 = "-----    --------   ---------     -------";
-        String[] monthLines = new String[this.getLoanMonths()];
+        String[] monthLines = new String[this.getLoanMonths()]; // this is a long String of lines that will contain the monthly cost breakdown.
         String fieldsFormat1 = "Month    Interest   Principal       Loan";
         String fieldsFormat2 = "         Paid       Paid         Balance";
-        String allMonthLines = "";
-        double newBalance = getLoanAmount();
+        String allMonthLines = String.format("                               %.2f\n", getLoanAmount());
+        double newBalance = getLoanAmount(); // newBalance starts at loan amount and decreases by the principle each month.
 
         for (int i = 0; i < (this.getLoanMonths()); i++) {
 
@@ -87,7 +71,7 @@ public class Loan {
             allMonthLines += monthLines[i];
         }
 
-        String total = String.format("Totals      %.2f     %.2f", getTotalInterest(), getLoanAmount());
+        String total = String.format("Totals      %.2f     %.2f", getLoanCost(), getLoanAmount());
 
         return String.format(
                 "%s\n          Amortization Schedule\n             Monthly Payment\n                 $%.2f\n%s\n%s\n%s\n%s\n\n%s%s\n%s",
@@ -95,7 +79,6 @@ public class Loan {
     }
 
     /** Getters */
-
     public double getLoanAmount() {
 
         return loan;
@@ -112,42 +95,43 @@ public class Loan {
     }
 
     /** Setters */
+    // if the loan is negative, the program will throw an error.
+    public void setLoanAmount(double newLoan) { 
 
-    public void setLoanAmount(double setLoan) {
-
-        if (setLoan < 0) {
+        if (newLoan < 0) {
 
             throw new IllegalArgumentException("Loan: setLoan: the loan amount must be non-negative");
 
         } else {
 
-            this.loan = setLoan;
+            this.loan = newLoan;
         }
 
     }
 
-    public void setAnnualInterestRate(double setAnnualInterest) {
-
-        if (setAnnualInterest < 0 || setAnnualInterest > 100) {
+    // if the annualInterest is negative or bigger than 100, the program will throw an error.
+    public void setAnnualInterestRate(double newAnnualInterest) { 
+        if (newAnnualInterest < 0 || newAnnualInterest > 100) {
 
             throw new IllegalArgumentException(
                     "Loan: setAnnualInterest: the annual interest should be between 0 and 100");
 
         } else {
 
-            this.annualInterest = setAnnualInterest;
+            this.annualInterest = newAnnualInterest;
         }
     }
 
-    public void setLoanMonths(int setMonths) {
+    // if the number of months is negative, the program will throw an error.
+    public void setLoanMonths(int newMonths) { 
 
-        if (setMonths < 0) {
+        if (newMonths < 0) {
 
             throw new IllegalArgumentException("Loan: setMonths: the amount of months should be non-negative.");
 
         } else {
 
-            this.months = setMonths;
+            this.months = newMonths;
         }
     }
 }

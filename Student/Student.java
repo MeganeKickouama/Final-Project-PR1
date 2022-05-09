@@ -5,7 +5,7 @@ package Student;
 public class Student {
 
     /** Data members */
-    private static int nextID = 0;
+    private static int nextID = 1;
 
     private String ID;
     private String firstName;
@@ -47,12 +47,13 @@ public class Student {
         ID = generateID(nextID);
         firstName = setFirstName;
         lastName = setLastName;
-        email = setEmail;
+        email = setEmail.toLowerCase();
         age = setAge;
         course1 = setCourse1;
         course2 = setCourse2;
     }
 
+    /** Copy constructor with different ID */
     public Student(Student otherStudent) {
 
         nextID++;
@@ -90,6 +91,7 @@ public class Student {
         }
     }
 
+    /** Gets the email string before the '@' */
     public String extractEmail() {
 
         if (isEmailValid(this.email)) { // check if email is valid. if not, return " "
@@ -107,13 +109,13 @@ public class Student {
                         emailLetters[j] = email.charAt(j);
                         sampleEmail += emailLetters[j];
                     }
-                } 
+                }
             }
 
             return sampleEmail;
 
         } else {
-            
+
             return " ";
         }
     }
@@ -134,6 +136,7 @@ public class Student {
             } else if (email.charAt(i) == '.') {
                 doesHaveDot = true;
             } else {
+                // do nothing
             }
         }
 
@@ -146,6 +149,8 @@ public class Student {
         return (doesHaveAt && doesHaveDot);
     }
 
+    /* String format for Student */
+    @Override
     public String toString() {
 
         return "Name    : " + firstName + " " + lastName + "\n" +
@@ -156,10 +161,11 @@ public class Student {
                 "Course1 : " + course1.getCourseName() + " [" + course2.getCredit() + " credits]";
     }
 
+    /* Returns true if the student is equal to another student (except for ID) */
     public boolean equals(Student otherStudent) {
 
         return (this.lastName == otherStudent.lastName && this.firstName == otherStudent.firstName
-                && this.ID == otherStudent.ID && this.age == otherStudent.age && this.email == otherStudent.email &&
+                && this.age == otherStudent.age && this.email == otherStudent.email &&
                 this.course1 == otherStudent.course1 && this.course2 == otherStudent.course2);
     }
 
@@ -212,7 +218,7 @@ public class Student {
 
     public void setEmail(String newEmail) {
 
-        this.email = newEmail;
+        this.email = newEmail.toLowerCase();
     }
 
     public void setAge(int newAge) {
